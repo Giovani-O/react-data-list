@@ -1,6 +1,6 @@
 {
   "tags": [
-    { "title": "JavaScript", "amountOfVideos": 120 },
+    { "title": "React", "amountOfVideos": 120 },
     { "title": "Python", "amountOfVideos": 98 },
     { "title": "HTML", "amountOfVideos": 75 },
     { "title": "CSS", "amountOfVideos": 63 },
