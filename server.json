@@ -944,6 +944,30 @@
       "title": "Internet of Things",
       "slug": "internet-of-things",
       "amountOfVideos": 69
+    },
+    {
+      "id": "9c33",
+      "title": "React Hook Form",
+      "slug": "react-hook-form",
+      "amountOfVideos": 0
+    },
+    {
+      "id": "24b5",
+      "title": "Tanstack Query",
+      "slug": "tanstack-query",
+      "amountOfVideos": 0
+    },
+    {
+      "id": "54da",
+      "title": "Tailwind CSS",
+      "slug": "tailwind-css",
+      "amountOfVideos": 0
+    },
+    {
+      "id": "85cf",
+      "title": "Radix UI Primitives",
+      "slug": "radix-ui-primitives",
+      "amountOfVideos": 0
     }
   ]
 }
