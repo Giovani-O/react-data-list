@@ -86,7 +86,8 @@ export function App() {
           <Dialog.Root>
             <Dialog.Trigger asChild>
               <Button variant="primary">
-                <Plus className="size-3" /> Create new
+                <Plus className="size-3" />
+                Create new
               </Button>
             </Dialog.Trigger>
 
