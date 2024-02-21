@@ -6,20 +6,39 @@ import { useForm } from 'react-hook-form'
 import * as Dialog from '@radix-ui/react-dialog'
 
 const createTagSchema = z.object({
-  name: z.string().min(3, { message: 'Name must have at least 3 characters' }),
+  title: z.string().min(3, { message: 'Name must have at least 3 characters' }),
   slug: z.string(),
 })
 
 type CreateTagSchema = z.infer<typeof createTagSchema>
 
+function getSlugFromString(input: string): string {
+  return input
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^\w\s]/g, '')
+    .replace(/\s+/g, '-')
+}
+
 export function CreateTagForm() {
-  const { register, handleSubmit } = useForm<CreateTagSchema>({
+  const { register, handleSubmit, watch } = useForm<CreateTagSchema>({
     resolver: zodResolver(createTagSchema),
   })
 
-  function createTag(data: CreateTagSchema) {
-    console.log(data)
+  async function createTag({ title, slug }: CreateTagSchema) {
+    console.log(title, slug)
+
+    await fetch('http://localhost:4444/tags', {
+      method: 'POST',
+      body: JSON.stringify({
+        title,
+        slug,
+      }),
+    })
   }
+
+  const slug = watch('title') ? getSlugFromString(watch('title')) : ''
 
   return (
     <form onSubmit={handleSubmit(createTag)} className="w-full space-y-6">
@@ -28,7 +47,7 @@ export function CreateTagForm() {
           Tag name
         </label>
         <input
-          {...register('name')}
+          {...register('title')}
           id="name"
           type="text"
           className="border border-zinc-800 rounded-lg px-3 py-2.5 w-full bg-zinc-800/50 text-sm"
@@ -44,6 +63,7 @@ export function CreateTagForm() {
           id="slug"
           type="text"
           readOnly
+          value={slug}
           className="border border-zinc-800 rounded-lg px-3 py-2.5 w-full bg-zinc-800/50 text-sm"
         />
       </div>
