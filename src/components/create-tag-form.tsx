@@ -7,7 +7,6 @@ import * as Dialog from '@radix-ui/react-dialog'
 
 const createTagSchema = z.object({
   title: z.string().min(3, { message: 'Name must have at least 3 characters' }),
-  slug: z.string(),
 })
 
 type CreateTagSchema = z.infer<typeof createTagSchema>
@@ -26,19 +25,20 @@ export function CreateTagForm() {
     resolver: zodResolver(createTagSchema),
   })
 
-  async function createTag({ title, slug }: CreateTagSchema) {
-    console.log(title, slug)
+  const slug = watch('title') ? getSlugFromString(watch('title')) : ''
+
+  async function createTag({ title }: CreateTagSchema) {
+    await new Promise((resolve) => setTimeout(resolve, 2000))
 
     await fetch('http://localhost:4444/tags', {
       method: 'POST',
       body: JSON.stringify({
         title,
         slug,
+        amountOfVideos: 0,
       }),
     })
   }
-
-  const slug = watch('title') ? getSlugFromString(watch('title')) : ''
 
   return (
     <form onSubmit={handleSubmit(createTag)} className="w-full space-y-6">
@@ -59,7 +59,6 @@ export function CreateTagForm() {
           Slug
         </label>
         <input
-          {...register('slug')}
           id="slug"
           type="text"
           readOnly
